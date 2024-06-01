@@ -8,20 +8,17 @@ class NavigationPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(bottomNavigationBarProvider);
-
     return Scaffold(
       body: IndexedStack(
         index: selectedIndex,
-        children: [
-          UserListPage(),
-          UserShopPage()        ],
+        children: [UserListPage(), UserShopPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
         onTap: (currentIndex) {
           ref.read(bottomNavigationBarProvider.notifier).state = currentIndex;
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.trolley),
             label: 'Shopping lists',

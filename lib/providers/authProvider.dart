@@ -1,8 +1,5 @@
-
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/signup_service.dart';
-import '../presentation/pages/login/login.dart';
 
 final apiServiceProvider = Provider<ApiService>((ref) => ApiService());
 
@@ -15,6 +12,7 @@ class AuthState {
   AuthState(this._apiService);
 
   Future<void> signUp(String username, String password, String role, context) async {
+    // if (isAdmin)
     await _apiService.signUp(username, password, role, context);
   } 
 }

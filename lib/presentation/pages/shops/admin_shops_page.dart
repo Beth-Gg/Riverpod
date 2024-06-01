@@ -18,18 +18,15 @@ class AdminShopPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shemeta Shopping'),
-        backgroundColor: Color.fromARGB(255, 124, 118, 207),
+        title: const Text('Shemeta Shopping'),
+        backgroundColor: Colors.deepPurple,
         actions: [
-          TextButton(
+          IconButton(
             onPressed: () {
               auth.logout();
               context.go('/login');
             },
-            child: const Text('Logout', 
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
@@ -40,7 +37,7 @@ class AdminShopPage extends ConsumerWidget {
             itemBuilder: (context, index) {
               final shop = shops[index];
               return Card(
-                margin: EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
                 elevation: 4,
                 child: ListTile(
                   title: Text(shop.name),
@@ -49,23 +46,27 @@ class AdminShopPage extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.edit),
+                        icon: const Icon(Icons.edit),
                         onPressed: () {
                           showDialog(
                             context: context,
                             builder: (context) => EditShopDialog(
                               shop: shop,
                               onEdit: (name, items) {
+                                shopsNotifier.fetchAllShops();
                                 shopsNotifier.editShop(shop.id, name, items);
+                                shopsNotifier.fetchAllShops();
                               },
                             ),
                           );
                         },
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
+                          shopsNotifier.fetchAllShops();
                           shopsNotifier.deleteShop(shop.id);
+                          shopsNotifier.fetchAllShops();
                         },
                       ),
                     ],
@@ -75,9 +76,9 @@ class AdminShopPage extends ConsumerWidget {
             },
           );
         },
-        loading: () => Center(child: CircularProgressIndicator()),
+        loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) =>
-            Center(child: Text('Failed to load shops')),
+            const Center(child: Text('Failed to load shops')),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Center(
@@ -87,19 +88,21 @@ class AdminShopPage extends ConsumerWidget {
                 context: context,
                 builder: (context) => EditShopDialog(
                   onEdit: (name, items) {
+                    shopsNotifier.fetchAllShops();
                     shopsNotifier.addShop(name, items);
+                    shopsNotifier.fetchAllShops();
                   },
                 ),
               );
             },
-            child: Text(
-              'Add a shop',
-              style: TextStyle(color: Colors.white),
-            ),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                Color.fromARGB(255, 110, 112, 240),
+                const Color.fromARGB(255, 110, 112, 240),
               ),
+            ),
+            child: const Text(
+              'Add a shop',
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ),

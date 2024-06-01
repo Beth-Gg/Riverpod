@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grocery_shopping_list/providers/login_provider.dart';
+import '../../../services/login_service.dart';
 
 final usernameProvider = StateProvider<String>((ref) => '');
 final passwordProvider = StateProvider<String>((ref) => '');
@@ -29,7 +30,6 @@ class LoginScreen extends ConsumerWidget {
               key: formKey,
               child: Column(
                 children: [
-                  // Image.asset('../assets/picture.png', width: 210),
                   const ListTile(
                       title: Text("Welcome back,",
                           style: TextStyle(
@@ -48,7 +48,8 @@ class LoginScreen extends ConsumerWidget {
                           icon: Icon(Icons.person),
                           border: InputBorder.none,
                           hintText: "Username",
-                        )),
+                        )
+                      ),
                   ),
 
                   Container(
@@ -93,10 +94,9 @@ class LoginScreen extends ConsumerWidget {
                                 _passwordController.text,
                                 context);
 
-                            // context.go('/userShops');
                           } catch (e) {
-                            // Handle login error
-                            print('Login failed: $e');
+                            // print('Login failed: $e');
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Login failed')));
                           }
                         },
                         child: const Text("LOGIN",

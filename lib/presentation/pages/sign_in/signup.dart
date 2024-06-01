@@ -71,7 +71,7 @@ class _SignupState extends ConsumerState<Signup> {
                       controller: _passwordController,
                       obscureText: isVisible,
                       decoration: InputDecoration(
-                          icon: Icon(Icons.lock),
+                          icon: const Icon(Icons.lock),
                           border: InputBorder.none,
                           hintText: "Password",
                           suffixIcon: IconButton(
@@ -92,6 +92,15 @@ class _SignupState extends ConsumerState<Signup> {
                         return null;
                       }),
                 ),
+                SwitchListTile(
+                  title: const Text('Do you want to be an admin?'),
+                  value: isAdmin,
+                  onChanged: (bool value) {
+                    setState(() {
+                      isAdmin = value;
+                    });
+                  },
+                ),
                 Container(height: 30),
                 const SizedBox(height: 10),
                 Container(
@@ -102,20 +111,38 @@ class _SignupState extends ConsumerState<Signup> {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: TextButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (formKey.currentState?.validate() ?? false) {
                           final username = _usernameController.text;
                           final password = _passwordController.text;
-                          const role = 'user';
+                          final role = isAdmin ? 'admin' : 'user';
                           try {
-                            final response = _apiService.signUp(
+                            final response = await _apiService.signUp(
                                 username, password, role, context);
-                            if (response != Null) {
+                            if (response != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Sign-up successful!'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
                               context.go('/login');
                             }
                           } catch (e) {
-                            print('Sign-up failed: $e');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Sign-up failed: $e'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
                           }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please fill in the form correctly'),
+                              backgroundColor: Colors.orange,
+                            ),
+                          );
                         }
                       },
                       child: const Text("SIGNUP",

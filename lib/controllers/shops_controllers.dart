@@ -1,17 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../repositories/shop_repositoriy.dart';
 import '../models/shops_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopsNotifier extends StateNotifier<List<Shop>> {
   final ShopRepository _shopRepository;
 
   ShopsNotifier(this._shopRepository) : super([]);
-
-  // Future<String> getToken() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   return prefs.getString('token');
-  // }
 
   Future<void> fetchAllShops() async {
     try {

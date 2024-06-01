@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../models/shops_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String baseUrl = 'http://192.168.253.42:6036/shop';
+const String baseUrl = 'http://192.168.0.182:6036/shop';
 
 class ShopRepository {
 Future<String?> _getToken() async {
