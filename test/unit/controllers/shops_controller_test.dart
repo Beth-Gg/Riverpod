@@ -1,15 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:grocery_shopping_list/repositories/shop_repositoriy.dart';
+
+import 'package:grocery_shopping_list/controllers/shops_controllers.dart';
+import 'package:grocery_shopping_list/models/shops_model.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../mocks/mock_shop_repository.dart';
 
-// Import your controller and other dependencies
-import '../../../lib/controllers/shops_controllers.dart';
-import '../../../lib/models/shops_model.dart';
-
-class MockShopRepository extends Mock implements ShopRepository {}
-
-class MockSharedPreferences extends Mock implements SharedPreferences {}
+import '../repository/shop_repository_test.mock.dart';
 
 void main() {
   group('ShopsNotifier', () {
@@ -74,7 +70,7 @@ void main() {
 
       // Mock successful response from deleteShop
       when(mockShopRepository.deleteShop(shopIdToDelete))
-          .thenAnswer((_) async => null);
+          .thenAnswer((_) async => Future.value());
 
       // Trigger deleteShop and wait for completion
       await shopsNotifier.deleteShop(shopIdToDelete);

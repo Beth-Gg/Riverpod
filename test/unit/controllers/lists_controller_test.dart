@@ -54,8 +54,7 @@ void main() {
       // Verify that the list was added to state
       expect(
         listsNotifier.state,
-        contains(
-            GroceryList(id: newListId, date: newDate, content: newContent)),
+        contains(GroceryList(id: newListId, date: newDate, content: newContent)),
       );
     });
 
@@ -66,8 +65,7 @@ void main() {
       final String updatedContent = 'Buy bread and milk';
 
       // Mock successful response from editList
-      when(mockListRepository.editList(
-              listIdToUpdate, updatedDate, updatedContent))
+      when(mockListRepository.editList(listIdToUpdate, updatedDate, updatedContent))
           .thenAnswer((_) async => null); // Assuming editList returns void
 
       // Trigger editList and wait for completion
@@ -76,8 +74,7 @@ void main() {
       // Verify that the list was updated in state
       expect(
         listsNotifier.state,
-        contains(GroceryList(
-            id: listIdToUpdate, date: updatedDate, content: updatedContent)),
+        contains(GroceryList(id: listIdToUpdate, date: updatedDate, content: updatedContent)),
       );
     });
 
