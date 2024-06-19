@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   Future signUp(String username, String password, String role, context) async {
-  final response = await http.post(
-      Uri.parse('http://localhost:6036/user/signup'),
-      headers:{'Authorizaton': '' },
+    final response = await http.post(
+      Uri.parse('http://192.168.0.182:6036/user/signup'),
+      headers: {'Authorizaton': ''},
       body: {
         'username': username,
         'password': password,
@@ -18,8 +18,4 @@ class ApiService {
       return false;
     }
   }
-
-  
-
-  
 }

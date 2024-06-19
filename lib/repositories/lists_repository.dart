@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../models/lists_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String baseUrl = 'http://localhost:6036/user';
+const String baseUrl = 'http://192.168.0.182:6036/user';
 
 class ListRepository {
   final http.Client client;

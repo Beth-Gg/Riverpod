@@ -30,7 +30,7 @@ class AuthService {
       String username, String password, BuildContext context) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:6036/auth/login'),
+        Uri.parse('http://192.168.0.182:6036/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'username': username, 'password': password}),
       );
@@ -58,7 +58,7 @@ class AuthService {
   String _decodeRoleFromToken(String token) {
     try {
       Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-      return decodedToken['role']; 
+      return decodedToken['role'];
     } catch (e) {
       throw Exception('Failed to decode token');
     }
